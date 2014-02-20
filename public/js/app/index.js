@@ -2,8 +2,12 @@
   var app = window.app = {
     modules : {},
 
+    config:{
+      API_ENDPOINT: "http://localhost:3000"
+    },
+
     init: function(){
-      
+     new this.modules.orders.model().get();
     }
    
   };
