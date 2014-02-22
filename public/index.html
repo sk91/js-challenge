@@ -5,19 +5,30 @@
 </head>
 <body>
 
+	<div id="view"></div>
+
+
 <!-- Orders -->
-<h1>Orders</h1>
-<ul class="orders-list">
-	<li  class="order">
-		<span class="id">Order id</span>
-		<span class="name">Order name</span>
-		<span class="geo-lat">Geo latitude</span>
-		<span class="geo-long">Geo longitude</span>
-		<span class="price">Price</span>
+<script  type="html/template" id="orders/list.tpl">
+	<h1>Orders</h1>
+	<span>Most common:</span>
+	<span class='common-name'></span>
+	<span class='common-number'></span>
+	<ul class="orders-list">
+		{{orders}}
+	</ul>
+</script>
+<!-- Orders list item-->
+<script  type="html/template" id="orders/list_item.tpl">
+	<li id="order_{{id}}" class="order">
+		<span class="name">{{name}}</span>
+		<span class="geo-lat">{{geo_lat}}</span>
+		<span class="geo-long">{{geo_long}}</span>
+		<span class="price">{{price}}</span>
 	</li>
-</ul>
+</script>
 
-
+<script type="text/javascript" src="js/lib/utils.js"></script>
 <script type="text/javascript" src="js/lib/http.js"></script>
 <script type="text/javascript" src="js/app/index.js"></script>
 <script type="text/javascript" src="js/orders/model.js"></script>
