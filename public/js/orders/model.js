@@ -2,7 +2,7 @@
   var orders = app.modules.orders = app.modules.orders || {};
 
   var Model = orders.model = function(){
-    this.items = [];
+    this.orders = [];
     this.max = {
       counters:{},
       count:-1,
@@ -38,7 +38,7 @@
       }catch(e){
         return this.error('invalid_response', e);
       }  
-      this.addNewItems(orders);
+      this.addNewOrders(orders);
     }
 
     function getFail(response,status){
@@ -50,34 +50,34 @@
    console.error(arguments);
   };
 
-  Model.prototype.getItems = function(){
-    return this.items;
+  Model.prototype.getOrders = function(){
+    return this.orders;
   }
 
-  Model.prototype.addNewItems = function(items){
-    var currentItemsCount = this.items.length
-      , newItems = []
-      , item;
-    for(var i = currentItemsCount; i<items.length ; i++){
-      item = utils.extend({}, this.default(), items[i]);
-      this.addItem(item);
-      newItems.push(item);
-      this.loadAddress(item);
+  Model.prototype.addNewOrders = function(orders){
+    var currentOrdersCount = this.orders.length
+      , newOrders = []
+      , order;
+    for(var i = currentOrdersCount; i<orders.length ; i++){
+      order = utils.extend({}, this.default(), orders[i]);
+      this.addOrder(order);
+      newOrders.push(order);
+      this.loadAddress(order);
     }
-    this.trigger('new-items',newItems);
+    this.trigger('new-orders',newOrders);
   }
 
 
-  Model.prototype.addItem = function(item){
+  Model.prototype.addOrder = function(order){
     var count;
-    this.items.push(item);
-    if(!(item.name in this.max.counters)){
-      this.max.counters[item.name] = 0;
+    this.orders.push(order);
+    if(!(order.name in this.max.counters)){
+      this.max.counters[order.name] = 0;
     }
-    count = ++this.max.counters[item.name];
+    count = ++this.max.counters[order.name];
     if(count > this.max.count){
       this.max.count = count;
-      this.max.name = item.name;
+      this.max.name = order.name;
     }
   }
 
@@ -92,7 +92,7 @@
     function addressSuccess(response){
       adderssObj = JSON.parse(response);
       order.address = adderssObj.results[0].formatted_address;
-      this.trigger('item-changed',order);
+      this.trigger('order-changed',order);
     }
   };
 

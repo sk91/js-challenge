@@ -1,3 +1,4 @@
+/** Provides ajax capabilities */
 (function(app, utils, undefined){
   app.http = {
     ajax : function(config, target){
@@ -14,6 +15,7 @@
       } , config);
 
       xhr.open(config.method, config.url);
+
       xhr.onreadystatechange=function(){
         if(xhr.readyState === 4 ){
           if(xhr.status === 200){

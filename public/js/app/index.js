@@ -15,8 +15,10 @@
           model: ordersModel
         }).render()
       , interval;
+
       ordersModel.get();
-      ordersView.on('new-items',function(){
+      
+      ordersView.on('new-orders',function(){
         setTimeout(function(){
           ordersModel.get();
         },1000);

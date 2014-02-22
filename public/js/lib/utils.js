@@ -1,7 +1,12 @@
+/**
+* Collection of utility functions
+*/
+
 (function(app,undefined){
   app.utils = {
 
     //this not a deep extend!!
+    /**Copies all properies from a list of objects to the target object*/
     extend: function(target){
       var src, srcObj;
 
@@ -22,14 +27,14 @@
       }
       return target;
     },
-
+    /** Tries to insert data properties into html template*/
     replacePlaceholders: function(html,data){
       for(var prop in data){
         html = html.replace("{{" + prop + "}}", data[prop]);
       }
       return  html;
     },
-
+    /** Creates dom fragment from html string*/
     create: function(htmlStr){
       var tmp = window.document.createElement('div')
         , frag = window.document.createDocumentFragment();
