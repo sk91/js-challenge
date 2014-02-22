@@ -1,5 +1,5 @@
-(function(window,undefined){
-  window.utils = {
+(function(app,undefined){
+  app.utils = {
 
     //this not a deep extend!!
     extend: function(target){
@@ -41,4 +41,4 @@
         return frag;
     }
   }
-})(window)
+})(app)

@@ -3,7 +3,8 @@
     modules : {},
 
     config:{
-      API_ENDPOINT: "http://localhost:3000"
+      API_ENDPOINT: "http://localhost:3000",
+      GEOCODING_ENDPOINT: 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&key=AIzaSyACX_h_5-5aP1CCGB8JnoLAXT1YJLzpReA&latlng='
     },
 
     init: function(){
@@ -15,7 +16,7 @@
         }).render()
       , interval;
       ordersModel.get();
-      ordersView.onNewItemsAdded(function(){
+      ordersView.on('new-items',function(){
         setTimeout(function(){
           ordersModel.get();
         },1000);
@@ -31,3 +32,4 @@
   });
 
 })(window)
+

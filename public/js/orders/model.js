@@ -1,4 +1,4 @@
-(function(app,http, window, undefined){
+(function(app,http,utils, EventEmmiter, window, undefined){
   var orders = app.modules.orders = app.modules.orders || {};
 
   var Model = orders.model = function(){
@@ -8,7 +8,7 @@
       count:-1,
       name:false
     };
-    this.listeners = [];
+    utils.extend(this,new EventEmmiter());
   }
 
   Model.prototype.default =  function(){
@@ -16,7 +16,8 @@
       name: 'unknown',
       geo_lat: 'unknown',
       geo_long: 'unknown',
-      price: 'unknown'
+      price: 'unknown',
+      address:''
     }
   };
 
@@ -61,8 +62,9 @@
       item = utils.extend({}, this.default(), items[i]);
       this.addItem(item);
       newItems.push(item);
+      this.loadAddress(item);
     }
-    this.triggerNewItemsAdded(newItems);
+    this.trigger('new-items',newItems);
   }
 
 
@@ -79,16 +81,22 @@
     }
   }
 
+  Model.prototype.loadAddress = function(order){
+    http.ajax({
+      method:'GET',
+      url: app.config.GEOCODING_ENDPOINT + order.geo_lat+',' + order.geo_long,
+      success: addressSuccess
+    },this);
+    this.trigger('model-changed',order);
 
-  Model.prototype.onNewItemsAdded = function(cb,target){
-    this.listeners.push({cb:cb, target:target || null});
-  }
-
-  Model.prototype.triggerNewItemsAdded = function(items){
-    for(var i = 0; i< this.listeners.length; i++){
-      this.listeners[i].cb.call(this.listeners[i].target,items);
+    function addressSuccess(response){
+      adderssObj = JSON.parse(response);
+      order.address = adderssObj.results[0].formatted_address;
+      this.trigger('item-changed',order);
     }
-  }
+  };
+
+
 
   Model.prototype.getMostOrdered = function(){
     if(this.max.name === false){
@@ -98,4 +106,4 @@
     return {count: this.max.count, name: this.max.name};
   };
 
-})(app, http, window);
+})(app, app.http, app.utils, app.EventEmmiter,window);

@@ -33,7 +33,7 @@ setInterval(function() {
     arr.push(obj);
     fs.writeFileSync('./canned/orders/index.get.json', JSON.stringify(arr));
     i++;
-}, 1000);
+}, 10000);
 
 can = canned('/canned', opts);
 

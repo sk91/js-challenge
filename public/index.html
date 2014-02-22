@@ -2,37 +2,56 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Test</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+	
 	<div id="view"></div>
 
 
 <!-- Orders -->
 <script  type="html/template" id="orders/list.tpl">
+	
+	
+	<div class='map'></div>
+	<div class='orders'>
 	<h1>Orders</h1>
-	<span>Most common:</span>
-	<span class='common-name'></span>
-	<span class='common-number'></span>
+	<h1 class='common'>
+		<span>Most common:</span>
+		<span class='common-name'></span>
+		<span class='common-number'></span>
+	</h1>
 	<ul class="orders-list">
 		{{orders}}
 	</ul>
+	</div>
 </script>
 <!-- Orders list item-->
 <script  type="html/template" id="orders/list_item.tpl">
 	<li id="order_{{id}}" class="order">
 		<span class="name">{{name}}</span>
-		<span class="geo-lat">{{geo_lat}}</span>
-		<span class="geo-long">{{geo_long}}</span>
-		<span class="price">{{price}}</span>
+		<span class="price">{{price}}$</span>
+		(<span class='address'>{{address}}</span>)
 	</li>
 </script>
+<script  type="html/template" id="orders/map_tooltip.tpl">
 
-<script type="text/javascript" src="js/lib/utils.js"></script>
-<script type="text/javascript" src="js/lib/http.js"></script>
+	<p>Name: <span class="name">{{name}}</span></p>
+	<p>Price: <span class="price">{{price}}</span>$</p>
+
+</script>
+
+
 <script type="text/javascript" src="js/app/index.js"></script>
+<script type="text/javascript" src="js/lib/http.js"></script>
+<script type="text/javascript" src="js/lib/utils.js"></script>
+<script type="text/javascript" src="js/lib/events.js"></script>
+<script type="text/javascript" src="js/lib/http.js"></script>
 <script type="text/javascript" src="js/orders/model.js"></script>
+<script type="text/javascript" src="js/orders/map_view.js"></script>
 <script type="text/javascript" src="js/orders/view.js"></script>
+
 
 </body>
 </html>

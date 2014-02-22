@@ -1,5 +1,5 @@
-(function(window, utils, undefined){
-  window.http = {
+(function(app, utils, undefined){
+  app.http = {
     ajax : function(config, target){
       var xhr = new XMLHttpRequest();
 
@@ -19,7 +19,7 @@
           if(xhr.status === 200){
             config.success.call(target, xhr.responseText, xhr);
           }else{
-            config.fail.call(target,xhr.responseText, xhr.status, xhr);
+            config.error.call(target,xhr.responseText, xhr.status, xhr);
           }
           config.done.call(target,xhr.responseText, xhr.status, xhr);
         }
@@ -28,4 +28,4 @@
 
     }
   }
-})(window,utils)
+})(app,app.utils)
